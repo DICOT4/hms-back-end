@@ -1,0 +1,87 @@
+
+service: hms-sls-back-end
+
+provider:	
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  environment:
+    NODE_ENV: development
+    JWT_SECRET: my_super_secret_key
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+
+plugins:
+  - serverless-offline
+
+functions:
+
+  verify-token:
+    handler: src/handlers/AuthHandler.auth
+  
+  health-check:
+    handler: handler.healthCheck
+    events:
+      - http:
+          path: /health-check
+          method: get
+
+  login:
+    handler: src/handlers/AuthHandler.login
+    events:
+      - http:
+          path: auth/login
+          method: post
+
+  me:
+    handler: src/handlers/AuthHandler.me
+    events:
+      - http:
+          path: auth/me
+          method: get
+          authorizer: verify-token
+
+  getUsers:
+    handler: src/handlers/UserHandler.getUsers
+    events:
+      - http:
+          path: users
+          method: get
+
+  getDoctorUsers:
+    handler: src/handlers/UserHandler.getDoctorUsers
+    events:
+      - http:
+          path: users/doctors
+          method: get
+
+  addUsers:
+    handler: src/handlers/UserHandler.addUser
+    events:
+      - http:
+          path: users
+          method: post
+
+  getPatients:
+    handler: src/handlers/patientHandler.getPatients
+    events:
+      - http:
+          path: patients
+          method: get
+
+  addPatients:
+    handler: src/handlers/patientHandler.addPatient
+    events:
+      - http:
+          path: patients
+          method: post
+
+  assignPatient:
+    handler: src/handlers/patientHandler.assignPatient
+    events:
+      - http:
+          path: patients/assign
+          method: post
