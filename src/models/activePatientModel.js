@@ -2,10 +2,10 @@ const {Model} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
-    class Doctor extends Model {
+    class ActivePatients extends Model {
     }
 
-    Doctor.init({
+    ActivePatients.init({
         id: {
             type: DataTypes.BIGINT,
             allowNull: false,
@@ -33,5 +33,5 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true,
     });
 
-    return Doctor;
+    return ActivePatients;
 };

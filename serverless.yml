@@ -79,9 +79,44 @@ functions:
           path: patients
           method: post
 
+  getSinglePatients:
+    handler: src/handlers/patientHandler.getSinglePatients
+    events:
+      - http:
+          path: users/patient
+          method: get
+
+  getSinglePharmacy:
+    handler: src/handlers/patientHandler.getSinglePharmacy
+    events:
+      - http:
+          path: users/pharmacy
+          method: get
+
+  getSingleLaboratory:
+    handler: src/handlers/patientHandler.getSingleLaboratory
+    events:
+      - http:
+          path: users/laboratory
+          method: get
+
   assignPatient:
     handler: src/handlers/patientHandler.assignPatient
     events:
       - http:
           path: patients/assign
+          method: post
+
+  getDoctorPatients:
+    handler: src/handlers/patientHandler.getDoctorPatients
+    events:
+      - http:
+          path: users/doctors/patients
+          method: get
+
+  web3FunctionCall:
+    handler: src/handlers/web3Handler.handle
+    events:
+      - http:
+          path: web3
           method: post

@@ -7,8 +7,12 @@ let sequelize = new Sequelize("hms", "root", "", {
 });
 
 (async() => {
-    await sequelize.sync()
-    await sequelize.authenticate();
+    try {
+        await sequelize.sync()
+        await sequelize.authenticate();
+    } catch (e) {
+        console.log(e);
+    }
 })()
 
 

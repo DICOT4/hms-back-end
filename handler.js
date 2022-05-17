@@ -12,5 +12,3 @@ module.exports.healthCheck = async (event, context, callback) => {
     callback(null, errorHandler(error));
   }
 };
-
-
